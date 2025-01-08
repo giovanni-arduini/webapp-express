@@ -4,11 +4,13 @@ const port = 3000;
 const notFound = require("./middlewares/notFound");
 const errorsHandler = require("./middlewares/errorsHandler");
 
+app.use(express.static("public"));
+
 app.get("/", (req, res) => {
   res.send("Ciao mamma!");
 });
 
-app.use(express.static("public"));
+// qui ci mettiamo le rotte
 
 app.use(errorsHandler);
 app.use(notFound);
