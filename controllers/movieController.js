@@ -7,6 +7,8 @@ function index(req, res) {
     console.log(err);
     console.log(movies);
 
+    if (err) return res.status(500).json({ message: err.message });
+
     res.json({ movies });
   });
 }
