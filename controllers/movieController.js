@@ -13,6 +13,15 @@ function index(req, res) {
   });
 }
 
-function show(req, res) {}
+function show(req, res) {
+  const id = parseInt(req.params.id);
+  const sql = `SELECT * FROM movies WHERE id = ${id}`;
+
+  connection.query(sql, (err, results) => {
+    const movie = results[0];
+
+    res.json({ movie });
+  });
+}
 
 module.exports = { index, show };
