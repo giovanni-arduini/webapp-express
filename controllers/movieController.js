@@ -7,6 +7,10 @@ function index(req, res) {
     console.log(err);
     console.log(movies);
 
+    movies.forEach((movie) => {
+      movie.image = `http://localhost3000/img/movies/${image}`;
+    });
+
     if (err) return res.status(500).json({ message: err.message });
 
     res.json({ movies });
