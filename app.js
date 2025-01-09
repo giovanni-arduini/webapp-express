@@ -11,8 +11,7 @@ app.get("/", (req, res) => {
   res.send("Ciao mamma!");
 });
 
-console.log(process.env);
-// qui ci mettiamo le rotte
+// console.log(process.env);
 app.use("/api/movies", movieRouter);
 
 app.use(errorsHandler);
