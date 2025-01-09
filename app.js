@@ -6,7 +6,7 @@ const errorsHandler = require("./middlewares/errorsHandler");
 const movieRouter = require("./routers/movieRouter");
 const cors = require("cors");
 
-app.use(cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 
 app.use(express.static("public"));
 
