@@ -3,12 +3,16 @@ const connection = require("../data/db");
 function index(req, res) {
   const sql = `SELECT * FROM movies`;
 
+  if (req.query.title) {
+    sql += `WHERE title LIKE ${req.query.title}`;
+  }
+
   connection.query(sql, (err, movies) => {
     console.log(err);
     console.log(movies);
 
     movies.forEach((movie) => {
-      movie.image = `http://localhost3000/img/movies/${image}`;
+      movie.image = `http://localhost:3000${movie.image}`;
     });
 
     if (err) return res.status(500).json({ message: err.message });
@@ -31,7 +35,7 @@ function show(req, res) {
     connection.query(sql, [id], (err, results) => {
       if (err) return res.status(500).json({ message: err.message });
       movie.reviews = results;
-      res.json({ movie });
+      res.json({ movie, success: true });
     });
   });
 }
