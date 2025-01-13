@@ -56,10 +56,20 @@ function show(req, res) {
 }
 
 function storeReview(req, res) {
-  const { id } = req.params.id;
-  const { name, text, vote } = req.body;
+  const id = req.params.id;
+  const { text, vote, name } = req.body;
 
-  sql = `INSERT INTO reviews ( text, name, vote, movie_id) VALUES (${name}, ${text}, ${vote}, ${id})`;
+  console.log(text, vote, name, id);
+
+  // res.json({ message: "chiamata effetuata!" });
+
+  const sql = `INSERT INTO reviews (text, name, vote, movie_id) VALUES (?, ?, ?, ?)`;
+
+  connection.query(sql, [text, name, vote, id], (err, results) => {
+    if (err) return res.status(500).json({ message: "Database query failed" });
+    console.log(results);
+    res.status(201).json({ message: `Review added` });
+  });
 }
 
 module.exports = { index, show, storeReview };
