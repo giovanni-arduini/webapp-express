@@ -55,4 +55,11 @@ function show(req, res) {
   });
 }
 
-module.exports = { index, show };
+function storeReview(req, res) {
+  const { id } = req.params.id;
+  const { name, text, vote } = req.body;
+
+  sql = `INSERT INTO reviews ( text, name, vote, movie_id) VALUES (${name}, ${text}, ${vote}, ${id})`;
+}
+
+module.exports = { index, show, storeReview };
