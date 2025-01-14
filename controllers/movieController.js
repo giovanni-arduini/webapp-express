@@ -63,12 +63,25 @@ function storeReview(req, res) {
 
   // res.json({ message: "chiamata effetuata!" });
 
+  // validazione
+  if (
+    !name ||
+    !vote ||
+    isNaN(vote) ||
+    parseInt(vote) < 1 ||
+    parseInt(vote) > 5 ||
+    name?.length > 255 ||
+    typeof name !== "string"
+  ) {
+    return res.status(400).json({ message: "The data is not valid" });
+  }
+
   const sql = `INSERT INTO reviews (text, name, vote, movie_id) VALUES (?, ?, ?, ?)`;
 
   connection.query(sql, [text, name, vote, id], (err, results) => {
     if (err) return res.status(500).json({ message: "Database query failed" });
     console.log(results);
-    res.status(201).json({ message: `Review added` });
+    res.status(201).json({ message: `Review added`, id: results.insertId });
   });
 }
 
